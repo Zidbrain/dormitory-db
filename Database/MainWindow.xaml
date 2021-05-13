@@ -1,0 +1,12 @@
+﻿<Window x:Class="Database.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Database"
+        mc:Ignorable="d"
+        Title="База данных &quot;Общежитие&quot;" Height="324" Width="304" WindowState="Normal" ResizeMode="CanResize" FontSize="18" SizeToContent="WidthAndHeight" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+        <ContentControl x:Name="ContentControl" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+    </Grid>
+</Window>
