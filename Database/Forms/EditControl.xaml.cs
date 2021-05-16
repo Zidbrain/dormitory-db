@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Database.Forms
 {
@@ -20,7 +8,7 @@ namespace Database.Forms
     /// </summary>
     public partial class EditControl : UserControl
     {
-        private DormitoriesContext _context;
+        private readonly DormitoriesContext _context;
         private readonly MainWindow _window;
 
         public EditControl(MainWindow window)
@@ -39,5 +27,7 @@ namespace Database.Forms
             _context.Dispose();
             _window.ContentControl.Content = _window.Menu;
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) => _context.SaveChanges();
     }
 }

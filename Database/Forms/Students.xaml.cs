@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
-using System.Data.SqlClient;
-using System.Text;
 using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Data;
@@ -68,96 +66,109 @@ namespace Database.Forms
         }
     }
 
+    public class StudentFormStub : FormBase<Студенты>
+    {
+        public StudentFormStub()
+        {
+        }
+    }
+
     /// <summary>
     /// Interaction logic for Students.xaml
     /// </summary>
-    public partial class Students : UserControl
+    public partial class Students : StudentFormStub
     {
-        private int _index;
-        private readonly DormitoriesContext _context;
-        private List<Студенты> _students;
-
-        private readonly DependencyProperty _studentDependency = DependencyProperty.Register("Student", typeof(Студенты), typeof(Students));
-        protected Студенты Student
+        public static readonly DependencyProperty RoomSelectProperty = DependencyProperty.Register("RoomSelect", typeof(List<int?>), typeof(Students));
+        public List<int?> RoomSelect
         {
-            get => (Студенты)GetValue(_studentDependency);
-            set => SetValue(_studentDependency, value);
+            get => (List<int?>)GetValue(RoomSelectProperty);
+            set => SetValue(RoomSelectProperty, value);
         }
 
-        private readonly DependencyProperty _roomSelectDependency = DependencyProperty.Register("RoomSelect", typeof(List<int?>), typeof(Students));
-        protected List<int?> RoomSelect
+        protected override void SetFields()
         {
-            get => (List<int?>)GetValue(_roomSelectDependency);
-            set => SetValue(_roomSelectDependency, value);
-        }
-        private void SetFields()
-        {
-            _students = _context.Студенты.ToList();
-            var student = _students.ElementAt(_index);
+            base.SetFields();
             var list = new List<int?>();
-            foreach (var item in _context.Проживания.Select(static item => item.КомнатаId))
-            {
-                if (!list.Contains(item))
-                    list.Add(item);
-            }
+            foreach (var item in Context.Комнаты)
+                list.Add(item.Номеркомнаты);
             RoomSelect = list;
-            Student = student;
-
-            if (_index is 0)
-                LeftButton.IsEnabled = false;
-            else LeftButton.IsEnabled = true;
-            if (_index == _context.Студенты.Count() - 1)
-                RightButton.IsEnabled = false;
-            else RightButton.IsEnabled = true;
         }
 
         public Students(DormitoriesContext context)
         {
             InitializeComponent();
-            Student = new Студенты() { Имя = "dsdad" };
 
-            _context = context;
+            Initialize(addButton, RemoveButton, LeftButton, RightButton, context, static context => context.Студенты);
 
             SetFields();
         }
 
-        private void RightButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        protected override void RightButtonClick(object sender, RoutedEventArgs e)
         {
-            _index++;
+            base.RightButtonClick(sender, e);
             Searchbar.Text = "";
-            SetFields();
         }
 
-        private void LeftButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        protected override void LeftButtonClick(object sender, RoutedEventArgs e)
         {
-            _index--;
+            base.LeftButtonClick(sender, e);
             Searchbar.Text = "";
-            SetFields();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Searchbar.Text != "")
             {
-                foreach (var student in _students)
+                foreach (var student in Items)
                     if (student.Фамилия.ToLower().StartsWith(Searchbar.Text.ToLower()))
                     {
-                        _index = _students.FindIndex(item => item == student);
+                        Index = Items.FindIndex(item => item == student);
                         SetFields();
                         return;
                     }
 
-                Student = new Студенты { Фамилия = "Фамилия", Имя = "Не", Отчетство = "Найдена!" };
+                Item = new Студенты { Фамилия = "Фамилия", Имя = "Не", Отчетство = "Найдена!" };
             }
             else SetFields();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        protected override void AddButtonClick(object sender, RoutedEventArgs e)
         {
-            var firstEntry = _context.Студенты.First();
-            var student = new Студенты { Имя = "a", Фамилия = "b", Отчетство = "c"};
-            _context.Add(student);
-            _context.SaveChanges();
+
+            var student = new Студенты { Имя = "Имя", Фамилия = "Фамилия", Отчетство = "Отчество", Проживания = new Проживания { КомнатаId = RoomSelect[0] } };
+            student.Проживания.Студенты = student;
+            Context.Add(student.Проживания);
+            Context.SaveChanges();
+
+            Items = Context.Студенты.ToList();
+            Index = Items.Count - 1;
+            Item = Items[Index];
+            SetFields();
+        }
+
+        protected override void RemoveButtonClick(object sender, RoutedEventArgs e)
+        {
+            Context.Remove(Item);
+            Context.Remove(Item.Проживания);
+            Context.SaveChanges();
+
+            Items = Context.Студенты.ToList();
+            if (Index >= Items.Count)
+                Index = Items.Count - 1;
+
+            Item = Items[Index];
+            SetFields();
+        }
+
+        private void RoomID_NewOptionSelected(object sender, System.EventArgs e)
+        {
+            var window = new CreateRoomWindow(Context);
+            if (window.ShowDialog() ?? false)
+            {
+                SetFields();
+                RoomID.ItemsSource = RoomSelect;
+                RoomID.SelectedItem = window.Item.Номеркомнаты;
+            }
         }
     }
 }

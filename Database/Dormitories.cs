@@ -674,7 +674,6 @@ namespace Database
     public class Проживания
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary>
         /// Общежитие.[Проживания].[Студент_ID]
         /// </summary>
@@ -733,7 +732,6 @@ namespace Database
     public class Студенты
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary>
         /// Общежитие.[Студенты].[Студент_ID]
         /// </summary>
@@ -927,7 +925,7 @@ namespace Database
             builder.ToTable("Комнаты", "dbo");
             builder.HasKey(x => x.Номеркомнаты).HasName("Комнаты$PrimaryKey").IsClustered();
 
-            builder.Property(x => x.Номеркомнаты).HasColumnName(@"Номер комнаты").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(x => x.Номеркомнаты).HasColumnName(@"Номер комнаты").HasColumnType("int").IsRequired().ValueGeneratedNever(); //.UseIdentityColumn();
             builder.Property(x => x.Количествомест).HasColumnName(@"Количество мест").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.ЭтажId).HasColumnName(@"Этаж_ID").HasColumnType("int").IsRequired(false);
 
@@ -966,7 +964,7 @@ namespace Database
             builder.ToTable("Студенты", "dbo");
             builder.HasKey(x => x.СтудентId).HasName("Студенты$PrimaryKey").IsClustered();
 
-            builder.Property(x => x.СтудентId).HasColumnName(@"Студент_ID");//.HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(x => x.СтудентId).HasColumnName(@"Студент_ID").HasColumnType("int").IsRequired().ValueGeneratedNever()/*.UseIdentityColumn()*/;
             builder.Property(x => x.Фамилия).HasColumnName(@"Фамилия").HasColumnType("nvarchar(20)").IsRequired(false).HasMaxLength(20);
             builder.Property(x => x.Имя).HasColumnName(@"Имя").HasColumnType("nvarchar(20)").IsRequired(false).HasMaxLength(20);
             builder.Property(x => x.Отчетство).HasColumnName(@"Отчетство").HasColumnType("nvarchar(20)").IsRequired(false).HasMaxLength(20);

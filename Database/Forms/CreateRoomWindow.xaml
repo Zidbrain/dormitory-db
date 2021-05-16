@@ -1,0 +1,32 @@
+﻿<Window x:Name="window" x:Class="Database.Forms.CreateRoomWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Database.Forms" xmlns:Database="clr-namespace:Database"
+        mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Title="Создание комнаты" FontSize="18" DataContext="{Binding Item, ElementName=window}" SizeToContent="WidthAndHeight">
+    <d:Window.DataContext>
+        <Database:Комнаты/>
+    </d:Window.DataContext>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="310" Height="186">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <local:DigitalTextbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Value="{Binding Номеркомнаты, Mode=TwoWay}"/>
+        <Label Content="Номер комнаты:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Количество мест:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+        <local:DigitalTextbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Value="{Binding Количествомест, Mode=TwoWay}"/>
+        <Label Content="Этаж_ID" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
+        <local:ExtendedComboBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="120" SelectedItem="{Binding ЭтажId}" ItemsSource="{Binding FloorSelect, ElementName=window, Mode=OneWay}"/>
+        <Button Content="ОК" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click"/>
+        <Button Content="Отмена" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click_1"/>
+    </Grid>
+</Window>

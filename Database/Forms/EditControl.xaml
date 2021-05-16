@@ -6,18 +6,35 @@
              xmlns:local="clr-namespace:Database.Forms"
              xmlns:Database="clr-namespace:Database" x:Class="Database.Forms.EditControl"
              mc:Ignorable="d" 
+    x:Name="userControl"
              d:DesignHeight="450" d:DesignWidth="800" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" FontSize="18">
+    <UserControl.Resources>
+        <Storyboard x:Key="storyboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Label" From="0.0" To="1.0" Duration="0:0:0.1"/>
+            <DoubleAnimation BeginTime="0:0:0.1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Label" From="1.0" To="0.0" Duration="0:0:1"/>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="68"/>
         </Grid.RowDefinitions>
         <TabControl x:Name="TabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Row="0">
             <TabItem Content="" Header="Студенты"/>
         </TabControl>
-        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" AutomationProperties.HelpText="asdasd" Grid.Row="1" Margin="0,10,10,10" Content="{Binding Mode=OneWay, Source={StaticResource Exit}}" Height="45" Width="44" Click="Button_Click"/>
+        <Button x:Name="button" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,10,10" Content="{Binding Mode=OneWay, Source={StaticResource Exit}}" Height="48" Width="48" Click="Button_Click" ToolTip="Назад"/>
+        <Button x:Name="Save" Content="{DynamicResource Save}" Grid.Row="1" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=button, Mode=OneWay}" Height="{Binding ActualWidth, ElementName=button, Mode=OneWay}" Margin="0,0,68,0" HorizontalAlignment="Right" ToolTip="Сохранить" Click="Button_Click_1">
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource storyboard}"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <Label x:Name="Label" Content="Сохранено" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,150,0" Opacity="0"/>
     </Grid>
 </UserControl>
