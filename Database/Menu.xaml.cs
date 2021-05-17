@@ -7,7 +7,7 @@ namespace Database
     /// </summary>
     public partial class Menu : UserControl
     {
-        private MainWindow _mainWindow;
+        private readonly MainWindow _mainWindow;
 
         public Menu(MainWindow mainWindow, bool isAdminPermissions)
         {
@@ -22,9 +22,6 @@ namespace Database
             }
         }
 
-        private void EditDataButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            _mainWindow.ContentControl.Content = new Forms.EditControl(_mainWindow);
-        }
+        private void EditDataButton_Click(object sender, System.Windows.RoutedEventArgs e) => _mainWindow.ContentControl.Content = new Forms.EditControl(_mainWindow);
     }
 }

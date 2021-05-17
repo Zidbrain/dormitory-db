@@ -4,11 +4,6 @@
              xmlns:local="clr-namespace:Database"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Image x:Key="Exit" Source="/Database;component/Resources/Exit.png" x:Shared="False"/>
-        <Image x:Key="Arrow" Source="/Database;component/Resources/Arrow.png" x:Shared="False"/>
-        <Image x:Key="Add" Source="/Database;component/Resources/Add.png" x:Shared="False"/>
-        <Image x:Key="Remove" Source="/Database;component/Resources/Remove.png" x:Shared="False"/>
-        <Image x:Key="Save" Source="/Database;component/Resources/Save.png" x:Shared="False"/>
-        <Image x:Key="ArrowUp" Source="/Database;component/Resources/Up.png" x:Shared="False"/>
+        <ResourceDictionary Source="Resources.xaml"/>
     </Application.Resources>
 </Application>

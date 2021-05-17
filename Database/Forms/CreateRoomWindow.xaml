@@ -9,6 +9,9 @@
     <d:Window.DataContext>
         <Database:Комнаты/>
     </d:Window.DataContext>
+    <Window.Resources>
+        <local:ExtendedComboBoxItemConverter x:Key="ExtendedConverter"/>
+    </Window.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="310" Height="186">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -25,7 +28,7 @@
         <Label Content="Количество мест:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
         <local:DigitalTextbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Value="{Binding Количествомест, Mode=TwoWay}"/>
         <Label Content="Этаж_ID" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
-        <local:ExtendedComboBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="120" SelectedItem="{Binding ЭтажId}" ItemsSource="{Binding FloorSelect, ElementName=window, Mode=OneWay}"/>
+        <local:ExtendedComboBox x:Name="FloorComboBox" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="120" SelectedItem="{Binding ЭтажId, Converter={StaticResource ExtendedConverter}}" ItemsSource="{Binding FloorSelect, ElementName=window, Mode=OneWay}" NewOptionSelected="ExtendedComboBox_NewOptionSelected"/>
         <Button Content="ОК" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click"/>
         <Button Content="Отмена" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click_1"/>
     </Grid>

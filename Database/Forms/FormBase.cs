@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Data;
 
 namespace Database.Forms
 {
@@ -11,7 +12,17 @@ namespace Database.Forms
         private System.Func<DormitoriesContext, DbSet<T>> _getSet;
 
         protected int Index { get; set; }
-        protected DormitoriesContext Context { get; set; }
+        public static readonly DependencyProperty ContextProperty = DependencyProperty.Register("Context", typeof(DormitoriesContext), typeof(FormBase<T>), new PropertyMetadata(PropertyChanged));
+
+        private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) => (sender as FormBase<T>).OnContextChanged(e.OldValue as DormitoriesContext, e.NewValue as DormitoriesContext);
+
+        protected virtual void OnContextChanged(DormitoriesContext oldContext, DormitoriesContext newContext) => SetFields();
+
+        public DormitoriesContext Context
+        {
+            get => (DormitoriesContext)GetValue(ContextProperty);
+            set => SetValue(ContextProperty, value);
+        }
         protected List<T> Items { get; set; }
 
         private Button _leftButton, _rightButton;
@@ -25,9 +36,11 @@ namespace Database.Forms
             set => SetValue(ItemProperty, value);
         }
 
-        protected void Initialize(Button addButton, Button removeButton, Button leftButton, Button rightButton, DormitoriesContext context, System.Func<DormitoriesContext, DbSet<T>> getDbSet)
+        public FormBase() { }
+
+        protected void Initialize(Button addButton, Button removeButton, Button leftButton, Button rightButton, System.Func<DormitoriesContext, DbSet<T>> getDbSet)
         {
-            (_leftButton, _rightButton, Context, _getSet) = (leftButton, rightButton, context, getDbSet);
+            (_leftButton, _rightButton, _getSet) = (leftButton, rightButton, getDbSet);
 
             if (_leftButton is not null)
                 _leftButton.Click += LeftButtonClick;
@@ -38,8 +51,6 @@ namespace Database.Forms
                 addButton.Click += AddButtonClick;
             if (removeButton is not null)
                 removeButton.Click += RemoveButtonClick;
-
-            SetFields();
         }
 
         protected virtual void SetFields()
@@ -73,15 +84,16 @@ namespace Database.Forms
             SetFields();
         }
 
+        protected virtual T GetNewValue() => new();
+
         protected virtual void AddButtonClick(object sender, RoutedEventArgs e)
         {
-            var item = new T();
+            var item = GetNewValue();
             Context.Add(item);
             Context.SaveChanges();
 
             Items = _getSet(Context).ToList();
-            Index = Items.Count - 1;
-            Item = Items[Index];
+            Index = Items.FindIndex(@object => @object == item);
             SetFields();
         }
 

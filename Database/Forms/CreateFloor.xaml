@@ -1,0 +1,33 @@
+﻿<Window x:Name="window" x:Class="Database.Forms.CreateFloor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Database.Forms"
+        xmlns:database="clr-namespace:Database"
+        mc:Ignorable="d"
+        d:DesignWidth="800" d:DesignHeight="400"  Title="Создание этажа" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SizeToContent="WidthAndHeight" FontSize="18" DataContext="{Binding Item, ElementName=window}">
+    <d:Window.DataContext>
+        <database:Этажи/>
+    </d:Window.DataContext>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" Height="206">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Этаж_ID:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Наличие кухни:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+        <Label Content="Наличие душа:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2"/>
+        <Button Content="ОК" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click_1"/>
+        <Button Content="Отмена" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click"/>
+        <local:DigitalTextbox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Value="{Binding ЭтажId, Mode=TwoWay}"/>
+        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" IsChecked="{Binding Наличиекухни, Mode=TwoWay}"/>
+        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" IsChecked="{Binding Наличиедуша, Mode=TwoWay}"/>
+    </Grid>
+</Window>

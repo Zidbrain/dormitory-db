@@ -81,5 +81,20 @@ namespace Database.Forms
             DialogResult = false;
             Close();
         }
+
+        private void ExtendedComboBox_NewOptionSelected(object sender, EventArgs e)
+        {
+            var window = new CreateFloor(Context);
+            if (window.ShowDialog() ?? false)
+            {
+                var list = new List<int?>();
+                foreach (var item in Context.Этажи)
+                    list.Add(item.ЭтажId);
+
+                FloorSelect = list;
+                FloorComboBox.ItemsSource = FloorSelect;
+                FloorComboBox.SelectedItem = window.Item.ЭтажId;
+            }
+        }
     }
 }

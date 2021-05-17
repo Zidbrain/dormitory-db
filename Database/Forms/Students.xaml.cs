@@ -66,17 +66,10 @@ namespace Database.Forms
         }
     }
 
-    public class StudentFormStub : FormBase<Студенты>
-    {
-        public StudentFormStub()
-        {
-        }
-    }
-
     /// <summary>
     /// Interaction logic for Students.xaml
     /// </summary>
-    public partial class Students : StudentFormStub
+    public partial class Students : FormBase<Студенты>
     {
         public static readonly DependencyProperty RoomSelectProperty = DependencyProperty.Register("RoomSelect", typeof(List<int?>), typeof(Students));
         public List<int?> RoomSelect
@@ -94,14 +87,20 @@ namespace Database.Forms
             RoomSelect = list;
         }
 
-        public Students(DormitoriesContext context)
+        public Students()
         {
             InitializeComponent();
-
-            Initialize(addButton, RemoveButton, LeftButton, RightButton, context, static context => context.Студенты);
-
-            SetFields();
+            Initialize(addButton, RemoveButton, LeftButton, RightButton, static context => context.Студенты);
         }
+
+        //public Students(DormitoriesContext context)
+        //{
+        //    InitializeComponent();
+
+        //    Initialize(addButton, RemoveButton, LeftButton, RightButton, context, static context => context.Студенты);
+
+        //    SetFields();
+        //}
 
         protected override void RightButtonClick(object sender, RoutedEventArgs e)
         {

@@ -8,26 +8,32 @@ namespace Database.Forms
     /// </summary>
     public partial class EditControl : UserControl
     {
-        private readonly DormitoriesContext _context;
+        public static readonly DependencyProperty ContextProperty = DependencyProperty.Register("Context", typeof(DormitoriesContext), typeof(EditControl));
+        public DormitoriesContext Context
+        {
+            get => (DormitoriesContext)GetValue(ContextProperty);
+            set => SetValue(ContextProperty, value);
+        }
+        
         private readonly MainWindow _window;
 
         public EditControl(MainWindow window)
         {
             InitializeComponent();
 
-            _context = new DormitoriesContext();
+            Context = new DormitoriesContext();
 
             _window = window;
 
-            (TabControl.Items[0] as TabItem).Content = new Students(_context);
+            //(TabControl.Items[0] as TabItem).Content = new Students(_context);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _context.Dispose();
+            Context.Dispose();
             _window.ContentControl.Content = _window.Menu;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e) => _context.SaveChanges();
+        private void Button_Click_1(object sender, RoutedEventArgs e) => Context.SaveChanges();
     }
 }

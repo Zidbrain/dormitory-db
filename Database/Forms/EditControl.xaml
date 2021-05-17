@@ -7,12 +7,13 @@
              xmlns:Database="clr-namespace:Database" x:Class="Database.Forms.EditControl"
              mc:Ignorable="d" 
     x:Name="userControl"
-             d:DesignHeight="450" d:DesignWidth="800" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" FontSize="18">
+             HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" FontSize="18" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}" >
     <UserControl.Resources>
         <Storyboard x:Key="storyboard">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Label" From="0.0" To="1.0" Duration="0:0:0.1"/>
             <DoubleAnimation BeginTime="0:0:0.1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Label" From="1.0" To="0.0" Duration="0:0:1"/>
         </Storyboard>
+        <local:DbSetConverter x:Key="setConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,7 +24,36 @@
             <RowDefinition Height="68"/>
         </Grid.RowDefinitions>
         <TabControl x:Name="TabControl" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Row="0">
-            <TabItem Content="" Header="Студенты"/>
+            <TabItem Header="Студенты">
+                <local:Students Context="{Binding Context, ElementName=userControl}"/>
+            </TabItem>
+            <TabItem Header="Этажи">
+                <local:Floors Context="{Binding Context, ElementName=userControl}"/>
+            </TabItem>
+            <TabItem Header="Комнаты">
+                <local:Rooms Context="{Binding Context, ElementName=userControl}" ItemsList="{Binding Context.Комнаты, Converter={StaticResource setConverter}, ConverterParameter={x:Type Database:Комнаты}}"/>
+            </TabItem>
+            <TabItem Header="Дежурства">
+                <local:Duties Context="{Binding Context, ElementName=userControl}"/>
+            </TabItem>
+            <TabItem Header="Студенты с гостями">
+                <local:StudentsAndGuests Context="{Binding Context, ElementName=userControl}"/>
+            </TabItem>
+            <TabItem Header="Гости">
+                <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Context.Гости, ElementName=userControl, Converter={StaticResource DbSetConverter}, ConverterParameter={x:Type Database:Гости}}">
+                    <DataGrid.DataContext>
+                        <Database:Гости/>
+                    </DataGrid.DataContext>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Фамилия}" Header="Фамилия"/>
+                        <DataGridTextColumn Binding="{Binding Имя}" Header="Имя"/>
+                        <DataGridTextColumn Binding="{Binding Отчество}" Header="Отчество"/>
+                        <DataGridTextColumn Binding="{Binding Телефон}" Header="Телефон"/>
+                        <DataGridTextColumn Binding="{Binding Студенты.Фамилия}" Header="К кому"/>
+                        <DataGridTextColumn Binding="{Binding Датапосещения}" Header="Дата посещения"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
         </TabControl>
         <Button x:Name="button" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,10,10" Content="{Binding Mode=OneWay, Source={StaticResource Exit}}" Height="48" Width="48" Click="Button_Click" ToolTip="Назад"/>
         <Button x:Name="Save" Content="{DynamicResource Save}" Grid.Row="1" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=button, Mode=OneWay}" Height="{Binding ActualWidth, ElementName=button, Mode=OneWay}" Margin="0,0,68,0" HorizontalAlignment="Right" ToolTip="Сохранить" Click="Button_Click_1">

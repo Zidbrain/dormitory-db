@@ -989,7 +989,7 @@ namespace Database
             builder.ToTable("Этажи", "dbo");
             builder.HasKey(x => x.ЭтажId).HasName("Этажи$PrimaryKey").IsClustered();
 
-            builder.Property(x => x.ЭтажId).HasColumnName(@"Этаж_ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(x => x.ЭтажId).HasColumnName(@"Этаж_ID").HasColumnType("int").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.Наличиекухни).HasColumnName(@"Наличие кухни").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.Наличиедуша).HasColumnName(@"Наличие душа").HasColumnType("bit").IsRequired(false);
         }
