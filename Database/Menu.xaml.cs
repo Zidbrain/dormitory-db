@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows;
 
 namespace Database
 {
@@ -17,11 +18,29 @@ namespace Database
 
             if (!isAdminPermissions)
             {
-                ViewQueriesButton.IsEnabled = false;
                 EditDataButton.IsEnabled = false;
             }
         }
 
         private void EditDataButton_Click(object sender, System.Windows.RoutedEventArgs e) => _mainWindow.ContentControl.Content = new Forms.EditControl(_mainWindow);
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e) => _mainWindow.ContentControl.Content = new Reports(_mainWindow);
+
+        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Дейтвительно выйти?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Information) is MessageBoxResult.Yes)
+                _mainWindow.Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e) => MessageBox.Show("Выполнил\nКузнецов Григорий Игоревич\nИУ5-43Б");
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.Hide();
+            var login = new LoginWindow();
+            login.Show();
+
+            _mainWindow.Close();
+        }
     }
 }

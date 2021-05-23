@@ -9,8 +9,8 @@
              d:DesignHeight="450" d:DesignWidth="800" d:Background="White" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}">
     <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ItemsList, ElementName=userControl}">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="Номер комнаты" Binding="{Binding Номеркомнаты}"/>
-            <DataGridTextColumn Header="Количество мест" Binding="{Binding Количествомест}"/>
+            <DataGridTextColumn Header="Номер комнаты" Binding="{Binding НомерКомнаты}"/>
+            <DataGridTextColumn Header="Количество мест" Binding="{Binding КоличествоМест}"/>
             <DataGridComboBoxColumn x:Name="ComboBoxColumn" Header="Этаж_ID" SelectedItemBinding="{Binding ЭтажId}"/>
         </DataGrid.Columns>
     </DataGrid>

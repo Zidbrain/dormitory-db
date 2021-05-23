@@ -20,7 +20,7 @@ namespace Database
 
             var binding = new Binding()
             {
-                Source = _context.Группыпользователей.Select(item => item.Group).ToList()
+                Source = _context.ГруппыПользователей.Select(item => item.Group).ToList()
             };
             UserTypeBox.SetBinding(ComboBox.ItemsSourceProperty, binding);
             UserTypeBox.SelectedIndex = 0;
@@ -28,7 +28,7 @@ namespace Database
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (_context.Группыпользователей.Where(item => item.Group == UserTypeBox.Text).ToList()[0].Pass != InputBox.Password)
+            if (_context.ГруппыПользователей.Where(item => item.Group == UserTypeBox.Text).ToList()[0].Pass != InputBox.Password)
                 MessageBox.Show("Неверный пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {

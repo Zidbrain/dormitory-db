@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Database.Forms"
         xmlns:database="clr-namespace:Database"
         mc:Ignorable="d"
-        d:DesignWidth="800" d:DesignHeight="400"  Title="Создание этажа" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SizeToContent="WidthAndHeight" FontSize="18" DataContext="{Binding Item, ElementName=window}">
+        d:DesignWidth="800" d:DesignHeight="400"  Title="Создание этажа" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SizeToContent="WidthAndHeight" FontSize="18" DataContext="{Binding Item, ElementName=window}" Background="WhiteSmoke">
     <d:Window.DataContext>
         <database:Этажи/>
     </d:Window.DataContext>
@@ -27,7 +27,7 @@
         <Button Content="ОК" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click_1"/>
         <Button Content="Отмена" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click"/>
         <local:DigitalTextbox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Value="{Binding ЭтажId, Mode=TwoWay}"/>
-        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" IsChecked="{Binding Наличиекухни, Mode=TwoWay}"/>
-        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" IsChecked="{Binding Наличиедуша, Mode=TwoWay}"/>
+        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" IsChecked="{Binding НаличиеКухни, Mode=TwoWay}"/>
+        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" IsChecked="{Binding НаличиеДуша, Mode=TwoWay}"/>
     </Grid>
 </Window>

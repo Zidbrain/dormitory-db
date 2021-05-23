@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Database.Forms" xmlns:Database="clr-namespace:Database"
         mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Title="Создание комнаты" FontSize="18" DataContext="{Binding Item, ElementName=window}" SizeToContent="WidthAndHeight">
+             d:DesignHeight="450" d:DesignWidth="800" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Title="Создание комнаты" FontSize="18" DataContext="{Binding Item, ElementName=window}" SizeToContent="WidthAndHeight" Background="WhiteSmoke">
     <d:Window.DataContext>
         <Database:Комнаты/>
     </d:Window.DataContext>
@@ -23,10 +23,10 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:DigitalTextbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Value="{Binding Номеркомнаты, Mode=TwoWay}"/>
+        <local:DigitalTextbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Value="{Binding НомерКомнаты, Mode=TwoWay}"/>
         <Label Content="Номер комнаты:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Количество мест:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
-        <local:DigitalTextbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Value="{Binding Количествомест, Mode=TwoWay}"/>
+        <local:DigitalTextbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Value="{Binding КоличествоМест, Mode=TwoWay}"/>
         <Label Content="Этаж_ID" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
         <local:ExtendedComboBox x:Name="FloorComboBox" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="120" SelectedItem="{Binding ЭтажId, Converter={StaticResource ExtendedConverter}}" ItemsSource="{Binding FloorSelect, ElementName=window, Mode=OneWay}" NewOptionSelected="ExtendedComboBox_NewOptionSelected"/>
         <Button Content="ОК" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click"/>

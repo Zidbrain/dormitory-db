@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Windows.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Data.Common;
+using System.Data;
 
 namespace Database.Forms
 {
@@ -38,7 +40,7 @@ namespace Database.Forms
                 return null;
 
             var valstr = value as string;
-            if (parameter is "true")
+            if (parameter is PassportAndPhoneConverterParameter.Passport)
                 return $"{valstr[..4]} {valstr[4..]}";
             else
                 return $"+7({valstr[..3]}){valstr[3..6]}-{valstr[6..8]}-{valstr[8..]}";
@@ -49,7 +51,7 @@ namespace Database.Forms
                 return null;
 
             var valstr = value as string;
-            if (parameter is "true")
+            if (parameter is PassportAndPhoneConverterParameter.Passport)
             {
                 if (!Regex.IsMatch(valstr, @"\A\d{4}\s\d{6}\z"))
                     throw new System.FormatException();
@@ -66,6 +68,25 @@ namespace Database.Forms
         }
     }
 
+    public enum PassportAndPhoneConverterParameter
+    {
+        Passport, Phone
+    }
+
+    public class RegexValidation : ValidationRule
+    {
+        public string RegexExpression { get; set; }
+
+        public string Error { get; set; }
+
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (Regex.IsMatch(value as string, RegexExpression))
+                return ValidationResult.ValidResult;
+            return new ValidationResult(false, Error);
+        }
+    }
+
     /// <summary>
     /// Interaction logic for Students.xaml
     /// </summary>
@@ -78,85 +99,34 @@ namespace Database.Forms
             set => SetValue(RoomSelectProperty, value);
         }
 
-        protected override void SetFields()
-        {
-            base.SetFields();
-            var list = new List<int?>();
-            foreach (var item in Context.Комнаты)
-                list.Add(item.Номеркомнаты);
-            RoomSelect = list;
-        }
+        private Binding _binding;
 
         public Students()
         {
             InitializeComponent();
-            Initialize(addButton, RemoveButton, LeftButton, RightButton, static context => context.Студенты);
-        }
 
-        //public Students(DormitoriesContext context)
-        //{
-        //    InitializeComponent();
-
-        //    Initialize(addButton, RemoveButton, LeftButton, RightButton, context, static context => context.Студенты);
-
-        //    SetFields();
-        //}
-
-        protected override void RightButtonClick(object sender, RoutedEventArgs e)
-        {
-            base.RightButtonClick(sender, e);
-            Searchbar.Text = "";
-        }
-
-        protected override void LeftButtonClick(object sender, RoutedEventArgs e)
-        {
-            base.LeftButtonClick(sender, e);
-            Searchbar.Text = "";
+            _binding = new Binding("SelectedItem") { Source = control, Mode = BindingMode.OneWay, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
+            BindingOperations.SetBinding(this, ItemProperty, _binding);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Searchbar.Text != "")
             {
-                foreach (var student in Items)
+                for (int i = 0; i < control.Items.Count; i++)
+                {
+                    var student = control.Items[i] as Студенты;
                     if (student.Фамилия.ToLower().StartsWith(Searchbar.Text.ToLower()))
                     {
-                        Index = Items.FindIndex(item => item == student);
-                        SetFields();
+                        control.Index = i;
                         return;
                     }
+                }
 
                 Item = new Студенты { Фамилия = "Фамилия", Имя = "Не", Отчетство = "Найдена!" };
             }
-            else SetFields();
-        }
-
-        protected override void AddButtonClick(object sender, RoutedEventArgs e)
-        {
-
-            var student = new Студенты { Имя = "Имя", Фамилия = "Фамилия", Отчетство = "Отчество", Проживания = new Проживания { КомнатаId = RoomSelect[0] } };
-            student.Проживания.Студенты = student;
-            Context.Add(student.Проживания);
-            Context.SaveChanges();
-
-            Items = Context.Студенты.ToList();
-            Index = Items.Count - 1;
-            Item = Items[Index];
-            SetFields();
-        }
-
-        protected override void RemoveButtonClick(object sender, RoutedEventArgs e)
-        {
-            Context.Remove(Item);
-            Context.Remove(Item.Проживания);
-            Context.SaveChanges();
-
-            Items = Context.Студенты.ToList();
-            if (Index >= Items.Count)
-                Index = Items.Count - 1;
-
-            Item = Items[Index];
-            SetFields();
+            else
+                Item = control.SelectedItem as Студенты;
         }
 
         private void RoomID_NewOptionSelected(object sender, System.EventArgs e)
@@ -164,10 +134,46 @@ namespace Database.Forms
             var window = new CreateRoomWindow(Context);
             if (window.ShowDialog() ?? false)
             {
-                SetFields();
+                MakeList();
                 RoomID.ItemsSource = RoomSelect;
-                RoomID.SelectedItem = window.Item.Номеркомнаты;
+                RoomID.SelectedItem = window.Item.НомерКомнаты;
             }
+        }
+
+        private void MakeList()
+        {
+            var list = new List<int?>();
+            foreach (var item in Context.Комнаты)
+                list.Add(item.НомерКомнаты);
+            RoomSelect = list;
+        }
+
+        private void Control_SelectedItemChanged(object sender, System.EventArgs e)
+        {
+            MakeList();
+            BindingOperations.SetBinding(this, ItemProperty, _binding);
+        }
+
+        private void Control_Add(object sender, RoutedEventArgs e)
+        {
+            var student = new Студенты { Имя = "Имя", Фамилия = "Фамилия", Отчетство = "Отчество", Проживания = new Проживания { КомнатаId = RoomSelect[0] } };
+            student.Проживания.Студенты = student;
+            Context.Add(student.Проживания);
+            Context.SaveChanges();
+
+            control.Items = Context.Студенты.ToList();
+            control.Index = control.Items.Count - 1;
+        }
+
+        private void Control_Remove(object sender, RoutedEventArgs e)
+        {
+            Context.Remove(Item);
+            Context.Remove(Item.Проживания);
+            Context.SaveChanges();
+
+            control.Items = Context.Студенты.ToList();
+            if (control.Index >= control.Items.Count)
+                control.Index = control.Items.Count - 1;
         }
     }
 }

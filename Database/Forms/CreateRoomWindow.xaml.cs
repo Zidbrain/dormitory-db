@@ -54,15 +54,15 @@ namespace Database.Forms
 
             Item = new Комнаты
             {
-                Количествомест = 1,
-                Номеркомнаты = 0,
+                КоличествоМест = 1,
+                НомерКомнаты = 0,
                 ЭтажId = FloorSelect[0]
             };
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Context.Комнаты.Find(Item.Номеркомнаты) is not null)
+            if (Context.Комнаты.Find(Item.НомерКомнаты) is not null)
             {
                 MessageBox.Show("Комната с данным номером уже существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;

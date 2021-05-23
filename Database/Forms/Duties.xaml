@@ -8,47 +8,24 @@
              mc:Ignorable="d" 
              x:TypeArguments="database:Дежурства"
              d:DesignHeight="450" d:DesignWidth="800" d:Background="White" FontSize="18" DataContext="{Binding Item, ElementName=dutiesBaseStub}">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="220" Width="290">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Column="1" Grid.Row="3">
+    <StackPanel>
+        <local:ContentControl Items="{Binding Context.Дежурства, ElementName=dutiesBaseStub, Converter={StaticResource DbSetConverter}}" SelectedItem="{Binding Item, ElementName=dutiesBaseStub, Mode=OneWayToSource}" Remove="ContentControl_Remove" Add="ContentControl_Add"/>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="220" Width="290">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="rightButton" Content="{DynamicResource Arrow}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="48" Height="48"/>
-            <Button x:Name="leftButton" Content="{DynamicResource Arrow}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="48" Height="48" RenderTransformOrigin="0.5,0.5">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Студент_ID:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="Выполнено:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+            <Label Content="Дата:" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDate="{Binding Дата, Mode=TwoWay}"/>
+            <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" IsChecked="{Binding Выполнено, Mode=TwoWay}"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectedItem="{Binding СтудентId, Mode=TwoWay}" ItemsSource="{Binding Context.Студенты, Converter={StaticResource DbSetConverter}, ConverterParameter=true, ElementName=dutiesBaseStub}"/>
         </Grid>
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="addButton" Content="{DynamicResource Add}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="48" Height="46"/>
-            <Button x:Name="removeButton" Content="{DynamicResource Remove}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="48" Height="48"/>
-        </Grid>
-        <Label Content="Студент_ID:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Выполнено:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
-        <Label Content="Дата:" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
-        <DatePicker Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDate="{Binding Дата, Mode=TwoWay}"/>
-        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" IsChecked="{Binding Выполнено, Mode=TwoWay}"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectedItem="{Binding СтудентId, Mode=TwoWay}" ItemsSource="{Binding Context.Студенты, Converter={StaticResource DbSetConverter}, ConverterParameter={x:Type database:Студенты}, ElementName=dutiesBaseStub}"/>
-    </Grid>
+    </StackPanel>
 </local:FormBase>

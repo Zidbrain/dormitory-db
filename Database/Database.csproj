@@ -7,26 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Add.png" />
-    <None Remove="Resources\Arrow.png" />
-    <None Remove="Resources\Exit.png" />
-    <None Remove="Resources\Remove.png" />
-    <None Remove="Resources\Save.png" />
-    <None Remove="Resources\Up.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Dormitories.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Dormitories.tt</DependentUpon>
-    </Compile>
     <Compile Update="Model1.Context.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -35,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Dormitories.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Dormitories.cs</LastGenOutput>
-    </None>
     <None Update="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -47,15 +29,6 @@
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Add.png" />
-    <Resource Include="Resources\Arrow.png" />
-    <Resource Include="Resources\Exit.png" />
-    <Resource Include="Resources\Remove.png" />
-    <Resource Include="Resources\Save.png" />
-    <Resource Include="Resources\Up.png" />
   </ItemGroup>
 
 </Project>

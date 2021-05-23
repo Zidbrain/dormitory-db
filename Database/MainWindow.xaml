@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Database"
         mc:Ignorable="d"
-        Title="База данных &quot;Общежитие&quot;" Height="324" Width="304" WindowState="Normal" ResizeMode="CanResize" FontSize="18" SizeToContent="WidthAndHeight" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
-        <ContentControl x:Name="ContentControl" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+        Title="База данных &quot;Общежитие&quot;" Height="324" Width="304" WindowState="Normal" ResizeMode="CanResize" FontSize="18" SizeToContent="WidthAndHeight" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="WhiteSmoke">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ContentControl x:Name="ContentControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
     </Grid>
 </Window>

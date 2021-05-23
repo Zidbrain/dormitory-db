@@ -5,23 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Database"
         mc:Ignorable="d"
-        Title="Вход в базу данных" WindowStyle="ThreeDBorderWindow" ResizeMode="CanResize" Height="204" Width="219" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SizeToContent="WidthAndHeight">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="218" Height="194">
-        <Grid HorizontalAlignment="Center" Height="126" VerticalAlignment="Center" Width="184">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="35*"/>
-                <RowDefinition Height="35*"/>
-                <RowDefinition Height="35*"/>
-                <RowDefinition Height="35*"/>
-            </Grid.RowDefinitions>
-            <Label Content="Вход в базу данных" HorizontalAlignment="Left" Margin="39,0,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="UserTypeBox" HorizontalAlignment="Left" Margin="64,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="1"/>
-            <Label Content="Группа" HorizontalAlignment="Left" Margin="-1,0,0,0" VerticalAlignment="Center" Grid.Row="1"/>
-            <Label Content="Пароль" HorizontalAlignment="Left" Margin="-2,0,0,0" VerticalAlignment="Center" Grid.Row="2"/>
-            <PasswordBox x:Name="InputBox" HorizontalAlignment="Left" Margin="64,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="2"/>
-            <Button x:Name="LoginButton" Content="Вход" HorizontalAlignment="Right" Margin="64,5,0,0" VerticalAlignment="Center" Width="120" Click="Button_Click" Grid.Row="3"/>
-
-        </Grid>
-
+        Title="Вход в базу данных" Background="WhiteSmoke" WindowStyle="ThreeDBorderWindow" ResizeMode="CanResize" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" Height="244" Width="280">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Вход в базу данных" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Label Content="Группа" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ComboBox x:Name="UserTypeBox" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120" Margin="15,0,0,0"/>
+        </StackPanel>
+        <Label Content="Пароль" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2"/>
+        <PasswordBox x:Name="InputBox" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120" Grid.Row="2"/>
+        <Button x:Name="LoginButton" Content="Вход" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120" Click="Button_Click" Grid.Row="3" Margin="0,15,0,0"/>
     </Grid>
 </Window>

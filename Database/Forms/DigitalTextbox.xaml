@@ -13,16 +13,8 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="Up" Grid.Row="0" Content="{DynamicResource ArrowUp}" VerticalAlignment="Top" Height="16" Click="Up_Click"/>
-            <Button x:Name="Down" Grid.Row="1" Content="{DynamicResource ArrowUp}" VerticalAlignment="Bottom" Height="16" RenderTransformOrigin="0.5,0.5" Click="Down_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
+            <Button x:Name="Up" Grid.Row="0" Content="{StaticResource GlyphUp}" VerticalAlignment="Top" Height="16" Click="Up_Click"/>
+            <Button x:Name="Down" Grid.Row="1" Content="{StaticResource GlyphDown}" VerticalAlignment="Bottom" Height="16" Click="Down_Click">
             </Button>
         </Grid>
     </StackPanel>

@@ -20,14 +20,10 @@ namespace Database.Forms
     /// </summary>
     public partial class Floors : FormBase<Этажи>
     {
-        public Floors()
-        {
-            InitializeComponent();
-            Initialize(AddButton, RemoveButton, LeftButton, RightButton, static context => context.Этажи);
-        }
+        public Floors() => InitializeComponent();
 
-        protected override Этажи GetNewValue() =>
-            new() { ЭтажId = Items[^1].ЭтажId + 1 };
+        protected override Этажи GetNewItem() =>
+            new() { ЭтажId = (content.Items[^1] as Этажи).ЭтажId + 1 };
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -37,5 +33,11 @@ namespace Database.Forms
             window.Content = rooms;
             window.ShowDialog();
         }
+
+        private void ContentControl_Remove(object sender, RoutedEventArgs e) =>
+            StandartRemove(sender as ContentControl);
+
+        private void content_Add(object sender, RoutedEventArgs e) =>
+            StandartAdd(sender as ContentControl);
     }
 }

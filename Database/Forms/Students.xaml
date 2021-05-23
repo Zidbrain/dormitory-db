@@ -5,100 +5,97 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Database.Forms"
              xmlns:Database="clr-namespace:Database" x:Class="Database.Forms.Students"
-             mc:Ignorable="d" d:DesignWidth="800" Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" x:TypeArguments="Database:Студенты"
+             mc:Ignorable="d" d:DesignWidth="800" VerticalContentAlignment="Stretch" Background="White" HorizontalContentAlignment="Stretch" FontSize="18" x:TypeArguments="Database:Студенты"
             x:Name="UserControl" DataContext="{Binding Item, ElementName=UserControl}">
     <UserControl.Resources>
-        <local:PassportAndPhoneConverter x:Key="PassportAndPhoneConverter"/>
-        <local:BooleanConverter x:Key="BooleanConverter"/>
-        <local:ExtendedComboBoxItemConverter x:Key="ExtendedConverter"/>
+        <Style x:Key="phoneStle" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
-    <d:UserControl.DataContext>
-        <Database:Студенты/>
-    </d:UserControl.DataContext>
-    <Grid Height="550" Width="355">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <TextBox x:Name="StudentName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Column="1" Text="{Binding Имя}"/>
-        <Label Content="Имя:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox x:Name="LastName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="1" Grid.Column="1" Text="{Binding Фамилия}"/>
-        <Label Content="Фамилия:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-        <TextBox x:Name="Patronym" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="2" Grid.Column="1" Text="{Binding Отчетство}"/>
-        <Label Content="Отчество:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-        <local:ExtendedComboBox x:Name="RoomID" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="158" ItemsSource="{Binding RoomSelect, ElementName=UserControl, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Проживания.КомнатаId, Converter={StaticResource ExtendedConverter}, UpdateSourceTrigger=PropertyChanged}" NewOptionSelected="RoomID_NewOptionSelected"/>
-        <Label Content="Комната_ID:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-        <TextBox x:Name="Rent" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="4" Grid.Column="1" Text="{Binding Проживания.Платазамесяц}">
-        </TextBox>
-        <Label Content="Плата за месяц:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-        <CheckBox x:Name="Paid" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="21,0,0,0" Grid.Row="5" VerticalAlignment="Center" IsChecked="{Binding Проживания.Оплачено}"/>
-        <Label Content="Оплачено:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Margin="65,0,0,0"/>
-        <DatePicker x:Name="MoveInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Width="158" Grid.Row="6" Grid.Column="1" SelectedDate="{Binding Проживания.Заселение}"/>
-        <Label Content="Заселение:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
-        <DatePicker x:Name="MoveOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Width="158" Grid.Row="7" Grid.Column="1" SelectedDate="{Binding Проживания.Выселение}"/>
-        <Label Content="Выселение:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
-        <TextBox x:Name="GroupNumber" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="8" Grid.Column="1" Text="{Binding Номергруппы}"/>
-        <Label Content="Номер группы:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
-        <Border x:Name="border" BorderThickness="{Binding BorderThickness, ElementName=StudentName}" BorderBrush="Black" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding Width, ElementName=StudentName}" Height="{Binding ActualHeight, ElementName=StudentName, Mode=Default}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <RadioButton x:Name="Male" Content="М" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding Пол, Converter={StaticResource BooleanConverter}, ConverterParameter=М}"/>
-                <RadioButton x:Name="Female" Content="Ж" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" IsChecked="{Binding Пол, Converter={StaticResource BooleanConverter}, ConverterParameter=Ж}"/>
-            </Grid>
-        </Border>
-        <Label Content="Пол:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
-        <TextBox x:Name="Privileges" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="10" Grid.Column="1" Height="42" Text="{Binding Льготы}"/>
-        <Label Content="Льготы:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="10"/>
-        <TextBox x:Name="Cellphone" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="11" Grid.Column="1" Text="{Binding Телефон, Converter={StaticResource PassportAndPhoneConverter}, ConverterParameter=false}"/>
-        <Label Content="Телефон:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
-        <TextBox x:Name="Passport" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="12" Grid.Column="1" Text="{Binding Паспорт, Converter={StaticResource PassportAndPhoneConverter}, ConverterParameter=true}"/>
-        <Label Content="Паспорт:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
-        <Grid Grid.Column="1" Grid.Row="13">
+    <StackPanel>
+        <local:ContentControl x:Name="control" HorizontalAlignment="Stretch" VerticalAlignment="Center" Items="{Binding Context.Студенты, Converter={StaticResource DbSetConverter}, ElementName=UserControl}" SelectedItemChanged="Control_SelectedItemChanged" Add="Control_Add" Remove="Control_Remove"/>
+        <Grid HorizontalAlignment="Center" Height="492">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="RightButton" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="48" Height="48" Margin="10,0,0,0" Content="{DynamicResource Arrow}" ToolTip="Следующая запись"/>
-            <Button x:Name="LeftButton" HorizontalAlignment="Right" VerticalAlignment="Center" Width="48" Height="48" Margin="0,0,10,0" Content="{DynamicResource Arrow}" RenderTransformOrigin="0.5,0.5" ToolTip="Предыдущая запись">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="31*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="StudentName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Column="1" Text="{Binding Имя}"/>
+            <Label Content="Имя:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="LastName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="1" Grid.Column="1" Text="{Binding Фамилия}"/>
+            <Label Content="Фамилия:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+            <TextBox x:Name="Patronym" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="2" Grid.Column="1" Text="{Binding Отчетство}"/>
+            <Label Content="Отчество:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+            <local:ExtendedComboBox x:Name="RoomID" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="158" ItemsSource="{Binding RoomSelect, ElementName=UserControl, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Проживания.КомнатаId, Converter={StaticResource ExtendedConverter}, UpdateSourceTrigger=PropertyChanged}" NewOptionSelected="RoomID_NewOptionSelected"/>
+            <Label Content="Комната_ID:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+            <TextBox x:Name="Rent" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="4" Grid.Column="1" Text="{Binding Проживания.ПлатаЗаМесяц}">
+            </TextBox>
+            <Label Content="Плата за месяц:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+            <CheckBox x:Name="Paid" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="21,0,0,0" Grid.Row="5" VerticalAlignment="Center" IsChecked="{Binding Проживания.Оплачено}"/>
+            <Label Content="Оплачено:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Margin="65,0,0,0"/>
+            <DatePicker x:Name="MoveInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Width="158" Grid.Row="6" Grid.Column="1" SelectedDate="{Binding Проживания.Заселение}"/>
+            <Label Content="Заселение:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+            <DatePicker x:Name="MoveOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Width="158" Grid.Row="7" Grid.Column="1" SelectedDate="{Binding Проживания.Выселение}"/>
+            <Label Content="Выселение:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
+            <TextBox x:Name="GroupNumber" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="8" Grid.Column="1" Text="{Binding НомерГруппы}"/>
+            <Label Content="Номер группы:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
+            <Border x:Name="border" BorderThickness="{Binding BorderThickness, ElementName=StudentName}" BorderBrush="Black" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding Width, ElementName=StudentName}" Height="{Binding ActualHeight, ElementName=StudentName, Mode=Default}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton x:Name="Male" Content="М" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding Пол, Converter={StaticResource BooleanConverter}, ConverterParameter=М}"/>
+                    <RadioButton x:Name="Female" Content="Ж" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" IsChecked="{Binding Пол, Converter={StaticResource BooleanConverter}, ConverterParameter=Ж}"/>
+                </Grid>
+            </Border>
+            <Label Content="Пол:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
+            <TextBox x:Name="Privileges" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="10" Grid.Column="1" Height="42" Text="{Binding Льготы}"/>
+            <Label Content="Льготы:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="10"/>
+            <TextBox x:Name="Cellphone" Style="{StaticResource phoneStle}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="11" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path ="Телефон" Converter="{StaticResource PassportAndPhoneConverter}" ConverterParameter="{x:Static local:PassportAndPhoneConverterParameter.Phone}" ValidatesOnExceptions="True">
+                        <Binding.ValidationRules>
+                            <local:RegexValidation RegexExpression="\A\+7\(\d{3}\)\d{3}-\d{2}-\d{2}\z" Error="Веддите корректный телефон"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label Content="Телефон:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
+            <TextBox x:Name="Passport" Style="{StaticResource phoneStle}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" Grid.Row="12" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="Паспорт" Converter="{StaticResource PassportAndPhoneConverter}" ConverterParameter="{x:Static local:PassportAndPhoneConverterParameter.Passport}">
+                        <Binding.ValidationRules>
+                            <local:RegexValidation RegexExpression="\A\d{4}\s\d{6}\z" Error="Ввведите правильный пасспорт"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label Content="Паспорт:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
+            <Label Content="Поиск по фамилии:" HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center" Margin="0,5,0,10"/>
+            <Separator Grid.Row="13" Grid.ColumnSpan="2" Style="{StaticResource {x:Static StatusBar.SeparatorStyleKey}}"/>
+            <TextBox x:Name="Searchbar" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" TextChanged="TextBox_TextChanged"/>
         </Grid>
-        <Grid Grid.Row="13">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="addButton" Content="{DynamicResource Add}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="48" Height="48" Margin="10,0,0,0" ToolTip="Добавить запись"/>
-            <Button x:Name="RemoveButton" Content="{DynamicResource Remove}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="48" Height="48" Margin="0,0,10,0" ToolTip="Удалить запись"/>
-        </Grid>
-        <Label Content="Поиск по фамилии:" HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center"/>
-        <TextBox x:Name="Searchbar" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" TextWrapping="Wrap" VerticalAlignment="Center" Width="158" TextChanged="TextBox_TextChanged"/>
-    </Grid>
+    </StackPanel>
 </local:FormBase>

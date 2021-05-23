@@ -23,7 +23,13 @@ namespace Database.Forms
         public Duties()
         {
             InitializeComponent();
-            Initialize(addButton, removeButton, leftButton, rightButton, static item => item.Дежурства);
         }
+
+        private void ContentControl_Remove(object sender, RoutedEventArgs e) =>
+            StandartRemove(sender as ContentControl);
+
+        private void ContentControl_Add(object sender, RoutedEventArgs e) =>
+            StandartAdd(sender as ContentControl);
+
     }
 }

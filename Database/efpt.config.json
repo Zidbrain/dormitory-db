@@ -1,0 +1,96 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "DormitoriesContext1",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": null,
+   "ProceduresReturnList": false,
+   "ProjectRootNamespace": "Database",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[Switchboard Items]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Гости]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Группы пользователей]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Дежурства]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Комнаты]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Проживания]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Студенты]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Этажи]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Количество мест на этаже]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[Количество студентов по комнатам]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[Не выполнившие дежурства]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[Не оплатившие проживания]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[Время проживания]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[Дежурства по дате]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[Количество студентов в комнате]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[Посещение гостями]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": "ZID-PC\\SQLEXPRESS.Dormitories",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSpatial": false
+}

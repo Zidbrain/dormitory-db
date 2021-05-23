@@ -37,8 +37,8 @@ namespace Database.Forms
             Item = new Этажи
             {
                 ЭтажId = 0,
-                Наличиедуша = false,
-                Наличиекухни = false
+                НаличиеДуша = false,
+                НаличиеКухни = false
             };
         }
 

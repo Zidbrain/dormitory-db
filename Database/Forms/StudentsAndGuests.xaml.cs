@@ -20,10 +20,6 @@ namespace Database.Forms
     /// </summary>
     public partial class StudentsAndGuests : FormBase<Студенты>
     {
-        public StudentsAndGuests()
-        {
-            InitializeComponent();
-            Initialize(null, null, leftButton, rightButton, static item => item.Студенты);
-        }
+        public StudentsAndGuests() => InitializeComponent();
     }
 }
