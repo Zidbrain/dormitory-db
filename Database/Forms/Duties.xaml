@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800" d:Background="White" FontSize="18" DataContext="{Binding Item, ElementName=dutiesBaseStub}">
     <StackPanel>
         <local:ContentControl Items="{Binding Context.Дежурства, ElementName=dutiesBaseStub, Converter={StaticResource DbSetConverter}}" SelectedItem="{Binding Item, ElementName=dutiesBaseStub, Mode=OneWayToSource}" Remove="ContentControl_Remove" Add="ContentControl_Add"/>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="220" Width="290">
+        <Grid HorizontalAlignment="Center" Height="220" Width="504">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -20,12 +20,12 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="Студент_ID:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="Студент:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Content="Выполнено:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
             <Label Content="Дата:" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
             <DatePicker Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDate="{Binding Дата, Mode=TwoWay}"/>
             <CheckBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" IsChecked="{Binding Выполнено, Mode=TwoWay}"/>
-            <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectedItem="{Binding СтудентId, Mode=TwoWay}" ItemsSource="{Binding Context.Студенты, Converter={StaticResource DbSetConverter}, ConverterParameter=true, ElementName=dutiesBaseStub}"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedItem="{Binding Студент, Mode=TwoWay}" ItemsSource="{Binding Context.Студенты, Converter={StaticResource DbSetConverter}, ConverterParameter=false, ElementName=dutiesBaseStub}" HorizontalContentAlignment="Left"/>
         </Grid>
     </StackPanel>
 </local:FormBase>

@@ -34,6 +34,16 @@ namespace Database.Forms
             _window.ContentControl.Content = _window.Menu;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e) => Context.SaveChanges();
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var stud = (TabControl.Items[0] as TabItem).Content as Students;
+            if (Validation.GetHasError(stud.Cellphone) || Validation.GetHasError(stud.Passport))
+            {
+                MessageBox.Show("Ошибка", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }    
+
+            Context.SaveChanges();
+        }
     }
 }

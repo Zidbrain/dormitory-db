@@ -27,5 +27,9 @@ namespace Database
         public virtual Проживания Проживания { get; set; }
         public virtual ICollection<Гости> Гости { get; set; }
         public virtual ICollection<Дежурства> Дежурства { get; set; }
+
+        public override string ToString() {
+            return $"{Фамилия} {Имя} {Отчетство}";
+        }
     }
 }

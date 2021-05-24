@@ -70,7 +70,7 @@ namespace Database
         private async void ComboBox_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
         {
             using var context = new DormitoriesContext();
-            guests.ItemsSource = await context.Procedures.ПосещениегостямиAsync((int)e.AddedItems[0]);
+            guests.ItemsSource = await context.Procedures.ПосещениегостямиAsync((e.AddedItems[0] as Студенты).СтудентId);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
